@@ -1,41 +1,30 @@
 # ~/.zshrc
 
+# Setup plugin manager
+plug-setup() {
+  dir="$ZDATADIR/plug" src="$ZDOTDIR/plug.zsh" dst="$dir/plug.zsh"
+  mkdir -p "$dir"
+  [ ! -e "$dir/plug.zwc" ] || [ "$src" -nt "$dst" ] && {
+    cp "$src" "$dst"
+    zcompile "$dir/plug.zwc" "$dst"
+    print -P "%F{green}✔ Compiled plug.zsh%f"
+  }
+  source "$dst"
+}
 ZDATADIR="${XDG_DATA_HOME:-$HOME/.local/share}/zsh"
-
-# Function to compile .zsh files to .zwc bytecode
-zcompile-many() {
-  local f
-  for f do
-    [ -e "$f" ] || continue
-    [ -e "$f.zwc" ] && [ "$f.zwc" -nt "$f" ] && continue
-    zcompile "$f"
-  done
-}
-
-# Function to clone a plugin and compile it
-plug() {
-  local name="${1##*/}"
-  local plugin="$ZDATADIR/$name"
-  if [ ! -e $plugin ]; then
-    {
-      git clone --depth=1 "$1" "$plugin" && \
-        zcompile-many "$plugin"/**/*.zsh
-    } && print -P "%F{green}✔ Installed $name%f" \
-      || print -P "%F{red}✘ Failed to install $name%f"
-  fi
-}
+plug-setup
 
 # Install plugins
-plug https://github.com/zsh-users/zsh-syntax-highlighting
-plug https://github.com/zsh-users/zsh-autosuggestions
-plug https://github.com/romkatv/powerlevel10k
-plug https://github.com/joshskidmore/zsh-fzf-history-search
+plug-install https://github.com/zsh-users/zsh-syntax-highlighting
+plug-install https://github.com/zsh-users/zsh-autosuggestions
+plug-install https://github.com/romkatv/powerlevel10k
+plug-install https://github.com/joshskidmore/zsh-fzf-history-search
 
 # Evaluate on start
 prompt="${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 [ -r "$prompt" ] && source "$prompt"
-# (cat ~/.cache/wal/sequences &)
-eval "$(zoxide init zsh --cmd cd)"
+command -v zoxide >/dev/null && eval "$(zoxide init zsh --cmd cd)"
+command -v wal >/dev/null && (cat ~/.cache/wal/sequences &)
 
 # Shell options
 setopt no_beep                # No bell
@@ -75,11 +64,6 @@ bindkey "^[[A" history-beginning-search-backward-end
 bindkey "^[[B" history-beginning-search-forward-end
 ZSH_FZF_HISTORY_SEARCH_FZF_EXTRA_ARGS="--height=30%"
 
-# Cleanup
-unfunction zcompile-many
-unfunction plug
-ZSH_AUTOSUGGEST_MANUAL_REBIND=1
-
 # Load plugins
 source "$ZDOTDIR/profile"
 source "$ZDOTDIR/lf-icons"
@@ -90,3 +74,4 @@ source "$ZDATADIR/zsh-fzf-history-search/zsh-fzf-history-search.plugin.zsh"
 
 # Load prompt
 [ ! -f "$ZDOTDIR/.p10k.zsh" ] || source "$ZDOTDIR/.p10k.zsh"
+ZSH_AUTOSUGGEST_MANUAL_REBIND=1

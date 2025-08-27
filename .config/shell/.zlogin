@@ -1,7 +1,7 @@
 # ~/.login
 
 # Source environment variables
-source "$HOME/.config/shell/.profile"
+# source "$HOME/.profile"
 
 # Source .bashrc for interactive shell
 if [[ $- == *i* ]] && [ -f ~/.bashrc ]; then
