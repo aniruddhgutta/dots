@@ -1,4 +1,6 @@
-# minidots
+# dots
+
+my minimal dotfiles
 
 ## Screenshots
 

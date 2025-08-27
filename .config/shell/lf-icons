@@ -1,4 +1,5 @@
-# lf-icons.sh — LF_ICONS setup for POSIX shells
+# lf-icons
+# export LF_ICONS for integration with shells
 
 LF_ICONS="\
 *.7z=:\
