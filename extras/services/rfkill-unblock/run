@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# Unblock all wireless devices
+rfkill unblock all

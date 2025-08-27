@@ -1,0 +1,25 @@
+#!/bin/sh
+
+image() {
+  chafa -f sixel --animate off --polite on "$@"
+  exit 1
+}
+
+video() {
+  ffmpeg -hide_banner -loglevel error -i "$1" \
+    -frames:v 1 -vf "scale=iw*0.5:ih*0.5" -f image2pipe -vcodec png - |
+    image
+}
+
+mime="$(file -b --mime-type -- "$1")"
+
+case "$mime" in
+  image/*) image -s "$2x$3" "$1" ;;
+  video/*) video "$1" ;;
+  application/pdf)
+    gs -sDEVICE=png48 -dLastPage=1 -sOutputFile=- \
+       -dNOPAUSE -dBATCH -q "$1" | image -s "$2x$3"
+    ;;
+  application/x-tar) tar tf "$1" ;;
+  *) cat "$1" ;;
+esac

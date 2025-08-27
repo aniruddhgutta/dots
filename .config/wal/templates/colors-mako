@@ -1,0 +1,28 @@
+# General
+default-timeout=3000
+font=monospace 10
+max-icon-size=32
+layer=overlay
+history=0
+
+# Colors
+background-color={color0}
+text-color=#FFFFFF
+border-color={color1}
+progress-color=over {color1}
+
+# Volume OSD
+[app-name=volume]
+group-by=app-name
+format=<b>%s</b>\n%b
+
+[app-name=volume group-index=0]
+invisible=0
+
+# Brightness OSD
+[app-name=brightness]
+group-by=app-name
+format=<b>%s</b>\n%b
+
+[app-name=brightness group-index=0]
+invisible=0

@@ -1,0 +1,104 @@
+[viewer]
+window = #000000
+history = 0
+preload = 3
+
+[gallery]
+window = #000000
+
+[list]
+recursive = yes
+
+[font]
+name = monospace
+size = 10
+shadow = #00000000
+
+[info]
+status_timeout = 0
+
+[info.viewer]
+top_left = none
+top_right = index
+bottom_left = name
+bottom_right = scale,imagesize,frame,status
+
+[info.gallery]
+top_left = exif
+top_right = index
+bottom_left = name
+bottom_right = filesize,status
+
+[keys.viewer]
+F1 = help
+
+j = first_file
+l = last_file
+h = prev_file
+l = next_file
+BackSpace = prev_file
+Space = next_file
+Escape = exit
+f = fullscreen
+Shift+d = prev_dir
+d = next_dir
+
+Return = mode gallery
+Left = step_left 10
+Right = step_right 10
+Up = step_up 10
+Down = step_down 10
+Shift+o = prev_frame
+n = animation
+o = next_frame
+i = zoom +25
+u = zoom -25
+z = zoom
+bracketleft = rotate_left
+bracketright = rotate_right
+comma = flip_vertical
+period = flip_horizontal
+a = antialiasing
+Space = info
+
+ScrollLeft = step_right 5
+ScrollRight = step_left 5
+ScrollUp = step_up 5
+ScrollDown = step_down 5
+Ctrl+ScrollUp = zoom +10
+Ctrl+ScrollDown = zoom -10
+Shift+ScrollUp = prev_file
+Shift+ScrollDown = next_file
+MouseLeft = drag
+MouseRight = mode gallery
+MouseSide = prev_file
+MouseExtra = next_file
+
+[keys.gallery]
+F1 = help
+Escape = exit
+
+Shift+asciicircum = first_file
+Shift+dollar = last_file
+h = step_left
+l = step_right
+k = step_up
+j = step_down
+x = skip_file
+f = fullscreen
+Return = mode viewer
+a = antialiasing
+r = reload
+i = info
+Equal = thumb +20
+Minus = thumb -20
+
+# Shift+Delete = exec rm -f '%' && echo "File removed: %"; skip_file
+
+q = exit
+# Mouse related
+ScrollUp = step_up
+ScrollDown = step_down
+Ctrl+ScrollUp = thumb +20
+Ctrl+ScrollDown = thumb -20
+MouseLeft = mode viewer

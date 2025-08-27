@@ -1,0 +1,80 @@
+# ~/.profile
+
+# Paths
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_CACHE_HOME="$HOME/.cache"
+export PATH="$PATH:$HOME/.local/bin"
+
+# Shell/script exports
+export LANG="en_US.UTF-8"
+export LC_ALL="$LANG"
+# export GPG_TTY=$(tty)
+# export POSIXLY_CORRECT=1
+
+# Default programs
+export EDITOR=$(command -v nvim || command -v vis || command -v vi)
+export VISUAL="$EDITOR"
+export TERMINAL="$TERM"
+export TERMINAL_PROG="$TERMINAL"
+export BROWSER="librewolf"
+
+# Program settings
+export MPD_HOST="$HOME/.config/mpd/socket"
+export XBPS_DISTDIR="$HOME/.local/src/void-packages"
+export CHROME_FLAGS="\
+  --enable-features=UseOzonePlatform \
+  --ozone-platform=wayland \
+  --enable-features=WebRTCPipeWireCapturer \
+  --enable-features=WaylandWindowDecorations \
+  --disable-features=WaylandFractionalScaleV1"
+
+# Cleanup
+export CARGO_HOME="$XDG_DATA_HOME/cargo"
+export GOPATH="$XDG_DATA_HOME/go"
+export GOMODCACHE="$XDG_CACHE_HOME/go/mod"
+export PYTHONSTARTUP="$XDG_CONFIG_HOME/python/pythonrc"
+export SQLITE_HISTORY="$XDG_DATA_HOME/sqlite_history"
+export WGETRC="$XDG_CONFIG_HOME/wget/wgetrc"
+export ZDOTDIR="$XDG_CONFIG_HOME/shell"
+export INPUTRC="$XDG_CONFIG_HOME/shell/inputrc"
+export ANDROID_SDK_HOME="$XDG_DATA_HOME/android"
+export GNUPGHOME="$XDG_DATA_HOME/gnupg"
+export SSL_CERT_DIR="$XDG_DATA_HOME/pki"
+export PKI_CONFIG_DIR="$XDG_DATA_HOME/pki"
+export GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc-2.0"
+
+# Makeflags
+COMMON_FLAGS="-O2 -march=native -pipe" # -flto
+export CFLAGS="$COMMON_FLAGS"
+export CXXFLAGS="$COMMON_FLAGS"
+export FCFLAGS="$COMMON_FLAGS"
+export FFLAGS="$COMMON_FLAGS"
+export LDFLAGS="$COMMON_FLAGS"
+export MAKEFLAGS="-j$(nproc)"
+export MAKEOPTS="$MAKEFLAGS"
+
+# Aliases
+alias la="ls -lAh --color"
+alias ls="ls -Ah --color"
+alias ..="cd .."
+alias ...="cd ../.."
+
+alias rm="rm -v"
+alias rf="rm -rf"
+alias cp="cp -i"
+
+alias df="df -Th"
+alias bc="bc -l"
+alias x=xdg-open
+
+alias vi="$EDITOR"
+alias s="$(command -v ssu  || command -v doas || command -v sudo) --"
+alias se="ssu -pe --"
+alias sm="s rm config.h; s make clean install && s make clean"
+
+alias fetch="cutefetch"
+alias bunny="fetch"
+alias cute="fetch"
+# alias fetch="fastfetch -c examples/8.jsonc"
+# alias storage="fastfetch -c examples/3.jsonc"

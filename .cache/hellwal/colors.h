@@ -1,0 +1,20 @@
+static const uint32_t background = 0x04040eff;
+static const uint32_t foreground = 0xffffffff;
+static const uint32_t border = 0xffffffff;
+
+static const uint32_t color0 = 0x04040eff;
+static const uint32_t color1 = 0x2b2b35ff;
+static const uint32_t color2 = 0x3c5564ff;
+static const uint32_t color3 = 0x797c8bff;
+static const uint32_t color4 = 0x7c7e9fff;
+static const uint32_t color5 = 0xaf9fb5ff;
+static const uint32_t color6 = 0xa8aed5ff;
+static const uint32_t color7 = 0xffffffff;
+static const uint32_t color8 = 0x12153cff;
+static const uint32_t color9 = 0x353542ff;
+static const uint32_t color10 = 0x4b697cff;
+static const uint32_t color11 = 0x989baeff;
+static const uint32_t color12 = 0x9b9cc6ff;
+static const uint32_t color13 = 0xdac6e2ff;
+static const uint32_t color14 = 0xd2d9ffff;
+static const uint32_t color15 = 0xffffffff;

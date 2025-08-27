@@ -1,0 +1,24 @@
+#!/bin/sh
+# Monitor layout and refresh rate menu using kanshi
+
+option=$(printf "External\nLaptop\nDual\nRefresh Rate" | mew -p "Select monitor layout:" -i)
+case "$option" in
+  "External") kanshictl switch monitor ;;
+  "Laptop") kanshictl switch laptop ;;
+  "Dual") kanshictl switch dual ;;
+  "Refresh Rate")
+    refresh_rate=$(printf "60Hz\n120Hz\n144Hz\n165Hz\n180Hz" | mew -p "Select refresh rate:" -i)
+    case "$refresh_rate" in
+      "60Hz"|"120Hz"|"144Hz"|"165Hz"|"180Hz")
+        rate=${refresh_rate%Hz}
+        sed -E -i "s/(mode [0-9]+x[0-9]+)@[0-9]+/\1@${rate}/" "$HOME/.config/kanshi/config"
+        kanshictl reload
+        notify-send "Refresh rate" "Set refresh rate to <span color='#85AEF1'>${rate}Hz</span>"
+        ;;
+      *) exit 1 ;;
+    esac
+    ;;
+  *) exit 1 ;;
+esac
+
+[ -n "$option" ] && [ "$option" != "Refresh Rate" ] && notify-send "$option"

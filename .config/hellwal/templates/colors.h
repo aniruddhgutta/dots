@@ -1,0 +1,20 @@
+static const uint32_t background = 0x%%background.hex%%ff;
+static const uint32_t foreground = 0x%%foreground.hex%%ff;
+static const uint32_t border = 0x%%border.hex%%ff;
+
+static const uint32_t color0 = 0x%%color0.hex%%ff;
+static const uint32_t color1 = 0x%%color1.hex%%ff;
+static const uint32_t color2 = 0x%%color2.hex%%ff;
+static const uint32_t color3 = 0x%%color3.hex%%ff;
+static const uint32_t color4 = 0x%%color4.hex%%ff;
+static const uint32_t color5 = 0x%%color5.hex%%ff;
+static const uint32_t color6 = 0x%%color6.hex%%ff;
+static const uint32_t color7 = 0x%%color7.hex%%ff;
+static const uint32_t color8 = 0x%%color8.hex%%ff;
+static const uint32_t color9 = 0x%%color9.hex%%ff;
+static const uint32_t color10 = 0x%%color10.hex%%ff;
+static const uint32_t color11 = 0x%%color11.hex%%ff;
+static const uint32_t color12 = 0x%%color12.hex%%ff;
+static const uint32_t color13 = 0x%%color13.hex%%ff;
+static const uint32_t color14 = 0x%%color14.hex%%ff;
+static const uint32_t color15 = 0x%%color15.hex%%ff;

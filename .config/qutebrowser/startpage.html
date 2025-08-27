@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>start</title>
+    <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: #000; /* url("wall.jpg") no-repeat center center; */
+      background-size: cover;
+      color: #ddd;
+      font-family: monospace;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    form {
+      width: 100%;
+      max-width: 600px;
+    }
+
+    input {
+      width: 100%;
+      padding: 0.7em;
+      background: #111;
+      border: 1px solid #444;
+      color: #ddd;
+      font-size: 1.2em;
+      font-family: inherit;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: #bbb;
+    }
+
+    .bookmarks {
+      margin-top: 1.2em;
+      display: flex;
+      gap: 0.6em;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .bookmarks a {
+      background: #111;
+      border: 1px solid #444;
+      color: #ddd;
+      padding: 0.4em 0.8em;
+      text-decoration: none;
+      font-size: 1em;
+      font-family: inherit;
+    }
+
+    .bookmarks a:hover {
+      border-color: #bbb;
+    }
+    </style>
+  </head>
+  <body>
+    <form id="search">
+      <input type="text" name="q" placeholder="search..." autocomplete="off">
+    </form>
+    <script>
+    const form = document.getElementById('search');
+    form.addEventListener('submit', e => {
+    e.preventDefault();
+    const query = form.q.value.trim();
+    if (query)
+    location.href = `https://apps.disroot.org/search?q=${encodeURIComponent(query)}`;
+    });
+    </script>
+    <div class="bookmarks">
+      <a href="https://codeberg.org/oceanicc">cbg</a>
+      <a href="https://discord.com/app">disc</a>
+      <a href="https://chatgpt.com">gpt</a>
+      <a href="https://web.whatsapp.com">wa</a>
+      <a href="https://fiitjeeglobalschool.myclassboard.com/StudentERP/Master_Student">mcb</a>
+      <a href="https://www.reddit.com">rd</a>
+      <a href="https://www.youtube.com">yt</a>
+      <a href="https://www.pixiv.net/en">pix</a>
+      <a href="https://webmail.disroot.org">dml</a>
+      <a href="https://mail.google.com/mail/u/0/#inbox">gml</a>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,11 @@
+#!/bin/sh
+# Menu to interact with wallpaper
+
+option=$(printf "Reapply wallpaper\nPrevious wallpaper\nColorscheme\nRandom wallpaper\nWallpaper menu" | mew -p "Select action:" -i)
+case "$option" in
+  "Reapply wallpaper") theme -r ;;
+  "Previous wallpaper") theme -p ;;
+  "Colorscheme") theme -c ;;
+  "Random wallpaper") theme -s ;;
+  "Wallpaper menu") theme -m ;;
+esac

@@ -1,0 +1,44 @@
+#!/bin/sh
+# Set wallpaper and colorscheme
+
+dir=$HOME/pics/walls/personal/new
+info=$HOME/.cache/script-cache/theme
+[ -f "$info" ] && . "$info" || : >"$info"
+
+usage(){ printf 'usage: %s [-rpsmc]\n' "${0##*/}"; exit 1; }
+
+save(){ printf 'prev_wall=%s\ncur_wall=%s\ncolorscheme=%s\n' \
+  "$prev_wall" "$cur_wall" "$colorscheme" >"$info"
+  printf '%s\n' "$cur_wall" >>"$HOME/.cache/script-cache/wallpaper-history"
+}
+
+colors(){ 
+  command -v wal >/dev/null || exit 1
+  [ "$1" = pywal ] && wal -i "$2" -nqe || wal --theme "$1" -nqe || exit 1
+  colorscheme=$1; save
+  notify-send -a wallpaper "Colorscheme set!" "Colorscheme set to \
+<span color='#85AEF1'>$colorscheme</span>"
+}
+
+wall(){
+  [ "$1" ] || exit 1
+  killall -q wbg 2>/dev/null; wbg -s "$1" &
+  [ "$arg" != "r" ] && { prev_wall=$cur_wall cur_wall=$1; save; }
+  [ "$colorscheme" = pywal ] && colors pywal "$1"
+  command -v makoctl >/dev/null && makoctl reload
+  notify-send -a wallpaper "Wallpaper set!" "Wallpaper set to \
+<span color='#85AEF1'>${cur_wall##*/}</span>"
+}
+
+[ $# -eq 0 ] && usage
+
+while getopts rpsmc arg; do case $arg in
+  r) wall "$cur_wall" ;;
+  p) wall "$prev_wall" ;;
+  s) wall "$(find "$dir" -type f -readable | shuf -n1)" ;;
+  m) sel=$(find "$dir" -type f -readable -printf '%P\n' | mew -p 'Select wallpaper:' -i)
+     [ "$sel" ] && wall "$dir/$sel" ;;
+  c) sel=$(wal --theme | awk -F' - ' '/ - / && $2 !~ /^random/ {print $2}' | mew -p 'Select colorscheme:' -i)
+     [ "$sel" ] && colors "$sel" "$cur_wall" ;;
+  *) usage ;;
+esac; done

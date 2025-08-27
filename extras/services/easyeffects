@@ -1,0 +1,5 @@
+type = process
+command = /usr/bin/easyeffects --gapplication-service
+depends-on = pipewire
+smooth-recovery = true
+

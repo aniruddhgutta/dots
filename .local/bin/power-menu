@@ -1,0 +1,45 @@
+#!/bin/sh -x
+# Logout and power menu
+
+for i in ssu doas sudo; do
+  command -v $i >/dev/null && { alias s="$i --"; break; }
+done
+
+case "$1" in
+  -l)
+    option=$(printf "Shutdown\nReboot\nSleep\nLogout" | mew -p "Power options:" -i)
+    case "$option" in
+      "Shutdown") loginctl poweroff ;;
+      "Reboot") loginctl reboot ;;
+      "Sleep") loginctl suspend;;
+      "Logout") loginctl terminate-session ;;
+    esac
+    ;;
+
+  -p)
+    option=$(printf "Conservation mode - On\nConservation mode - Off\nSleep on suspend - On\nSleep on suspend - Off\nAutolock - On\nAutolock - Off" | mew -p "Power management:" -i)
+    case $option in
+      "Conservation mode - On")  printf 1 | sudo tee /sys/bus/platform/devices/VPC2004:*/conservation_mode ;;
+      "Conservation mode - Off") printf 0 | sudo tee /sys/bus/platform/devices/VPC2004:*/conservation_mode ;;
+      "Sleep on suspend - On")
+        sudo sed -i '/Handle\(LidSwitch\|LidSwitchExternalPower\|SuspendKey\|HibernateKey\|PowerKey\)/d' /etc/elogind/logind.conf
+        sudo kill -HUP $(sudo pidof elogind)
+        ;;
+      "Sleep on suspend - Off")
+        grep -q '^HandleLidSwitch=ignore' /etc/elogind/logind.conf || {
+          sudo sh -c 'cat <<EOF >> /etc/elogind/logind.conf
+HandleLidSwitch=ignore
+HandleLidSwitchExternalPower=ignore
+HandleSuspendKey=ignore
+HandleHibernateKey=ignore
+HandlePowerKey=ignore
+EOF'
+          sudo kill -HUP $(sudo pidof elogind)
+        }
+        ;;
+    esac
+    ;;
+
+  *) printf "usage: ${0##*/} [-l] [-p]\n"; exit 1 ;;
+esac
+[ "$option" ] && notify-send "$option"

@@ -1,0 +1,4 @@
+type            = process
+command         = /usr/bin/syncthing -logflags=0 -home=$HOME/.config/syncthing
+load-options    = export-passwd-vars
+smooth-recovery = true

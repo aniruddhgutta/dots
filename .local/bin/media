@@ -1,0 +1,51 @@
+#!/bin/sh
+# Control media queue and display media status
+
+pctl="playerctl -p spotify_player,spotify,%any"
+alias pm="$pctl metadata"
+
+control() {
+  [ "$(mpc status '%state%')" = stopped ] && {
+    pm >/dev/null 2>&1 || exit 1
+    shift
+  }; $1
+}
+
+mpd_status() {
+  s=$(mpc current -f '%albumartist% - %title%'); [ "$s" ] || exit 1
+  [ ${#s} -gt 40 ] && s=$(printf "$s" | cut -c1-40)…
+  set -- $(mpc status '%percenttime%') && p=$1
+}
+
+pl_status() {
+    read c t s <<EOF
+$(pm -f '{{position}} {{mpris:length}} \
+  {{trunc(artist,15)}} - {{trunc(title,25)}}')
+EOF
+    p=$((c * 100 / t))%
+}
+
+case "$1" in
+  -s) control mpd_status pl_status; printf "$s [$p%]\n" ;;
+  -q)
+    case "$2" in
+      -t) control "mpc toggle" "$pctl play-pause" ;;
+      -n) control "mpc next"   "$pctl next" ;;
+      -p) control "mpc prev"   "$pctl previous" ;;
+      -s) control "mpc stop"   "$pctl stop" ;;
+      *) printf "usage: ${0##*/} $1 [-t|-n|-p]\n" ;;
+    esac
+    ;;
+  -v)
+    case $2 in
+      -i) op="+" ;;
+      -d) op="-" ;;
+      -s) op="" ;;
+      *) printf "usage: ${0##*/} $1 [-i-d|-s number]\n" >&2; exit 1 ;;
+    esac
+    mpc volume "$op$3"
+    set -- $(mpc status '%volume%') && vol=$1
+    notify-send -a "volume" -h int:value:$vol "Media Volume: $vol"
+    ;;
+  *) printf "usage: ${0##*/} [-s] [-q [-t|-n|-p] ] [-v [-i|-d|-s number] ]\n"; exit 1 ;;
+esac

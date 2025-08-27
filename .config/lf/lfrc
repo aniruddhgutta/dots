@@ -1,0 +1,46 @@
+# General
+# set hidden true
+set sixel true
+set icons true
+set previewer ~/.config/lf/previewer
+
+# Functions
+cmd yank-paths &printf '%s' "$fx" | wl-copy
+
+cmap <enter> &{{
+    [ "$lf_mode" = command ] && lf -remote "send $id complete-cmd" \
+    || lf -remote "send $id cmd-enter"
+}}
+
+cmd complete-cmd :{{
+    # position cursor at the end of the first word
+    cmd-home
+    cmd-word
+
+    # perform tab completion before running the command
+    cmd-complete
+    cmd-enter
+}}
+
+cmd on-cd &{{
+    lf -remote "send $id tty-write \"\033]0;lf: $PWD\007\""
+}}
+
+cmd follow-link %{{
+    lf -remote "send $id select \"$(readlink -- "$f" | sed 's/\\/\\\\/g;s/"/\\"/g')\""
+}}
+
+# Mappings
+map <esc> unselect
+map <enter> open
+map . set hidden!
+map L follow-link
+map d delete
+map x cut
+map p :paste; clear
+map y :copy
+map ad push %mkdir<space>
+map af push %touch<space>
+
+# On startup
+on-cd

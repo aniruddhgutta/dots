@@ -1,0 +1,9 @@
+#!/bin/sh
+# Remove unused package cache (voidlinux)
+
+alias s="$(command -v ssu  || command -v doas || command -v sudo) --"
+s xbps-remove -Oo
+for pkg in /var/cache/xbps/*.xbps; do 
+  xbps-query $(xbps-uhelper binpkgver "$pkg") 1>/dev/null 2>&1
+  [ $? = 2 ] && s rm -v $pkg*
+done
