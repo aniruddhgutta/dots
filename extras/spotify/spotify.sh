@@ -1,9 +1,11 @@
 # Instructions to set up spotify with spicetify
 
 # Install required programs
-yay -S --noconfirm spotify-launcher spicetify-cli unzip
+command -v yay >/dev/null && \
+  yay -S --noconfirm spotify-launcher spicetify-cli unzip
 
-# Open and log into spotify, after which you can proceed with the next steps 
+printf "%s\n" \
+  "Open and log into spotify, after which you can proceed with the next steps"
 
 # Inject spotify with spicetify
 spicetify backup apply

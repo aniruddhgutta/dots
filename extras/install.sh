@@ -188,16 +188,15 @@ clone () {
 
 printf "${CB}Cloning programs...${CRE}\n"
 clone https://codeberg.org/oceanicc/comfynvim "$HOME/.config/nvim"
-clone https://github.com/romkatv/powerlevel10k.git "$HOME/.config/shell/plugins/powerlevel10k"
 
 cd "$HOME/.local/src/" || exit 1
-for i in oceanicc/dwl oceanicc/minibar oceanicc/mew sewn/wlock sewn/widle sewn/wfreeze; do
+for i in oceanicc/dwl oceanicc/ministat oceanicc/mew sewn/wlock sewn/widle sewn/wfreeze; do
   clone "https://codeberg.org/$i.git"
 done
 
 # Compile programs
 printf "${CB}Compiling programs...${CRE}\n"
-for dir in dwl minibar mew wlock widle wfreeze; do
+for dir in dwl ministat mew wlock widle wfreeze; do
   printf "${CB}Compiling ${CY}$dir${CB}...${CRE}\n"
   (
     cd "$dir"

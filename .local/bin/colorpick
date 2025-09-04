@@ -8,5 +8,5 @@ color=$(grim -g "$(slurp -b 00000000 -p)" -t png - | \
 
 [ "$color" ] && {
   printf "#$color" | wl-copy
-  notify-send "Picked color" "<span color='#$color'>#$color</span> copied to clipboard"
+  notify-send "Picked color" "<span color='#$color'></span> #$color copied to clipboard"
 }

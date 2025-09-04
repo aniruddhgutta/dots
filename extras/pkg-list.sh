@@ -2,11 +2,11 @@
 # Package list for arch/artix and void linux
 
 # Common packages
-shell="foot fzf zsh bash-completion man less lf chafa zoxide neovim tree fastfetch htop btop xdg-utils unzip " # # nodejs ripgrep
+shell="foot fzf zsh bash-completion man less lf chafa zoxide neovim tree fastfetch htop btop xdg-utils unzip"
 extras="android-tools ps_mem"
-utils="wbg playerctl mako libnotify grim slurp kanshi stow" # # brightnessctl
+utils="wbg playerctl mako libnotify grim slurp kanshi stow"
 clipboard="wl-clip-persist wl-clipboard cliphist"
-system_utils="polkit-gnome dash xdg-desktop-portal-wlr xdg-desktop-portal-gtk" # # timeshift
+system_utils="polkit-gnome dash xdg-desktop-portal-wlr xdg-desktop-portal-gtk"
 printing="cups system-config-printer hplip"
 
 # Arch/Artix packages
@@ -22,11 +22,11 @@ if command -v pacman > /dev/null; then
   pipewire="pipewire pipewire-pulse wireplumber"
   dinit="turnstile-dinit pipewire-dinit pipewire-pulse-dinit wireplumber-dinit cups-dinit"
 
-  music="mpd mpc rmpc ffmpeg ffmpeg4.4 opus-tools yt-dlp spotdl python-syncedlyrics picard easyeffects"
+  music="mpd mpc ncmpcpp rmpc ffmpeg ffmpeg4.4 opus-tools yt-dlp spotdl python-syncedlyrics picard easyeffects"
   kvantum="kvantum qt6ct qt5ct kvantum-qt5 qt5-wayland qt6-wayland"
   thunar="thunar thunar-volman thunar-archive-plugin thunar-media-tags-plugin gvfs gvfs-mtp file-roller tumbler ffmpegthumbnailer" 
   themeing="papirus-icon-theme papirus-folders-catppuccin-git bibata-cursor-theme nwg-look python-pywal16"
-  personal="librewolf zathura zathura-pdf-poppler spotify-player spotify-launcher spotify-player spicetify-cli obsidian mpv swayimg syncthing gnome-text-editor gnome-calculator"
+  personal="librewolf zathura zathura-pdf-poppler spotify-player spotify-launcher spotify-player spicetify-cli obsidian mpv swayimg" # syncthing gnome-text-editor gnome-calculator
 
   export packages="$fonts $wlroots_deps $dwl_deps $shell $extras $utils $clipboard $system_utils $printing $nvidia $pipewire $dinit $music $thunar $themeing $personal downgrade"
   yay -Syu --removemake --noconfirm $packages
@@ -45,11 +45,11 @@ elif command -v xbps-install > /dev/null; then
   nvidia="nvidia linux-firmware-nvidia mesa mesa-dri" # nvidia-utils egl-wayland
   pipewire="pipewire wireplumber alsa-pipewire libspa-bluetooth"
 
-  music="mpd mpc rmpc ffmpeg opus-tools yt-dlp picard" # ffmpeg4.4 spotdl python-syncedlyrics # easyeffects
+  music="mpd mpc ncmpcpp rmpc ffmpeg opus-tools yt-dlp picard" # ffmpeg4.4 spotdl python-syncedlyrics # easyeffects
   kvantum="kvantum qt6ct qt5ct qt5-wayland qt6-wayland" # kvantum-qt5
   thunar="Thunar thunar-volman thunar-archive-plugin thunar-media-tags-plugin gvfs gvfs-mtp file-roller tumbler ffmpegthumbnailer"
   themeing="papirus-icon-theme papirus-folders nwg-look"
-  personal="chromium zathura zathura-pdf-poppler mpv swayimg ImageMagick" # librewolf spotify-launcher spicetify-cli # gnome-text-editor gnome-calculator firefox syncthing
+  personal="chromium zathura zathura-pdf-poppler mpv swayimg ImageMagick" # librewolf
 
   export packages="$fonts $wlroots_deps $dwl_deps $dwl_devel_deps $shell $extras $utils $clipboard $system_utils $pipewire $music $thunar $themeing $personal xmirror" # $printing $nvidia
   sudo xbps-install -Syu $packages

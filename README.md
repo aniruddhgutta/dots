@@ -2,49 +2,38 @@
 
 my minimal dotfiles
 
-## Screenshots
+![Screenshots](./extras/screenshots/cli.png)
 
-![Screenshots](./extras/screenshots/tiled.png)
-
-![Screenshots](./extras/screenshots/floating.png)
-
-![Screenshots](./extras/screenshots/spotify-zathura.png)
-
-![Screenshots](./extras/screenshots/minidark-gtk.png)
-
-
-## Overview
-
-my minimal dotfiles and scripts for wayland (dwl) and artix (dinit) / void linux
+![Screenshots](./extras/screenshots/gui.png)
 
 ### Configs
-- **Status bar**: [minibar](https://codeberg.org/oceanicc/minibar)
-- **Neovim config**: [comfynvim](https://codeberg.org/oceanicc/comfynvim)
-- **Custom dwl build**: [dwl](https://codeberg.org/oceanicc/dwl)
+- **Status**: [ministat](https://codeberg.org/oceanicc/ministat)
+- **Neovim**: [comfynvim](https://codeberg.org/oceanicc/comfynvim)
+- **dwl (patched)**: [dwl](https://codeberg.org/oceanicc/dwl)
 
 ### Programs
-- **Init**: dinit with turnstile
+- **Init**: runit, dinit (turnstile)
 - **Monitor layouts**: kanshi
 - **Notification daemon**: mako
 - **Terminal**: foot
 - **Launcher**: mew
 - **Screenlock**: [wlock](https://codeberg.org/sewn/wlock) with [widle](https://codeberg.org/sewn/widle)
-- **Shell**: zsh
-- **Editor**: neovim, helix (archived)
-- **Fetch**: fastfetch
-- **Music player**: mpd with rmpc, spotify with spicetify and custom pywal theme, tauonmb, ncmpcpp (archived)
-- **File manager**: thunar, yazi
+- **Shell**: zsh, bash
+- **Editor**: neovim, helix
+- **Fetch**: [cutefetch](./.local/bin/cutefetch)
+- **Music player**: spotify-player, ncmpcpp (mpd), spotify (spicetify)
+- **File manager**: lf, thunar
 - **PDF**: zathura
-- **Browser**: firefox
-- **Wallpapers**: swww, swaybg, wbg
-- **Colorschemes**: pywal, hellwal (archived)
+- **Browser**: chromium, librewolf
+- **Wallpapers**: wbg
+- **Colorscheme manager**: pywal
 
 ### Menus (custom scripts)
-- **Clipboard**: [clipboardw](./.local/bin/clipboardw) with wl-clip-persist and cliphist
-- **Color picker**: [colorpickw](./.local/bin/color-pickw)
+- **Clipboard**: cliphist (wl-clip-persist)
+- **Color picker**: [colorpick](./.local/bin/colorpick)
 - **Emoji menu**: [emojimenu](./.local/bin/emoji-menu)
-- **Wallpaper menu**: [wallpaperw](./.local/bin/wallpaperw)
-- **Screenshots**: [screenshotw](./.local/bin/screenshotw) with [wfreeze](https://codeberg.org/sewn/wfreeze), grim and slurp
+- **Wallpaper menu**: [theme](./.local/bin/theme)
+- **Screenshots**: [screenshot](./.local/bin/screenshot)
 
 ### Extras (custom)
 - **GTK theme**: [minidark](./extras/minidark/)
@@ -71,22 +60,10 @@ chmod +x ./extras/pkg-list.sh   # make the package install script executable
 ./extras/install.sh             # run the install script
 ```
 
-*Note - for dinit user services and automatic gtk theme application, please run the [post-install](./extras/post-install.sh) script after a reboot and starting dwl*
-
-
-## Information on startw
-
-[startw](./.local/bin/startw) is a script to start dwl from a tty with dbus and some necessary autostart programs (like kanshi for monitors and swww-daemon for wallpapers)
-- since kanshi is used for monitor configuration, please modify the [kanshi configs](./.config/kanshi/) with your monitor names and settings before starting dwl (very simple to edit, don't delete any files since they are used in startw unless you want to modify startw too)
-- if you're using systemd, remove dbus-update-activation-environment (refer to the dwl wiki for systemctl replacement) and don't use dbus-run-session, instead directly start dwl with ```minibar | dwl -s ...``` (edit startw)
-- startw also recompiles dwl when you change your wallpaper or colorscheme through pywal, so it's convenient to have sudo access without being asked for a password first
-
-*Note - dwl has to be recompiled after selecting any cursor theme/size (but works out of the box by install script)*
-
 
 ## Install script details
 
-the install script is tuned for my ideal setup, but is written in a very simple and easy to understand manner. please do modify it to your needs and remove any unessescary actions. i've listed what the install script does below:
+the install script is written in a very simple and easy to understand manner. please do modify it to suite your needs and remove any unessescary actions. i've listed what the install script does below:
 
 ### System configs
 - rewrites doas conf
@@ -124,11 +101,11 @@ the install script is tuned for my ideal setup, but is written in a very simple 
 - sets wallpaper to the one provided in repo - [wallpaper](./extras/wall.png)
 
 ### Clone and compile programs
-- clones and compiles all the programs i use (duh)
+- clones and compiles all the programs i use
 
 ### Final
 - changes shell to zsh
-- runs grub-mkconfig
+- runs grub-mkconfig (if using grub)
 
 ### ARCHIVED (disabled) - compile wlroots and dulcepan
 - compiles wlroots in the proper directory
@@ -137,8 +114,10 @@ the install script is tuned for my ideal setup, but is written in a very simple 
 
 ## Post install script details
 
+- for dinit user services and automatic gtk theme application, please run the [post-install](./extras/post-install.sh) script after a reboot and starting dwl*
 - enables dinit user services
 - sets gtk theme, changes icon pack and changes cursor theme and size
+- dwl has to be recompiled after selecting any cursor theme/size (but works out of the box by install script)
 - recompiles dwl to use cursor theme
 
 

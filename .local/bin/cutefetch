@@ -96,17 +96,17 @@ pkgcount() {
 } >/dev/null
 
 # Output
-# printf "%b\n" "              $title
-#    (\\ /)      $(colorise )  $os ${wmname:+- $wmname}
-#    ( . .)     $(colorise )  $kernel
-#    c(\")(\")    $(colorise )  $shell
-#               $(colorise 󰏖)  $package
-#               $(colorise 󰋊)  $disk
-#               $(colorise 󰏘)  $palette"
+printf "%b\n" "               $title
+               $(colorise )  $os ${wmname:+- $wmname}
+   (\\ /)       $(colorise )  $kernel
+   ( . .)      $(colorise )  $shell
+   c(\")(\")     $(colorise 󰏖)  $package
+               $(colorise 󰋊)  $disk
+               $(colorise 󰏘)  $palette"
 
-printf "%b\n" "                  $title
-   /| ､           $(colorise )  $os ${wmname:+- $wmname}
-  (°､ ｡ 7         $(colorise )  $kernel
-   |､  ~ヽ        $(colorise )  $shell
-   じしf_,)       $(colorise 󰋊)  $disk
-                  $(colorise 󰏘)  $palette"
+# printf "%b\n" "                  $title
+#    /| ､           $(colorise )  $os ${wmname:+- $wmname}
+#   (°､ ｡ 7         $(colorise )  $kernel
+#    |､  ~ヽ        $(colorise )  $shell
+#    じしf_,)       $(colorise 󰏖)  $package
+#                   $(colorise 󰏘)  $palette"

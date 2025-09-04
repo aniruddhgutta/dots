@@ -5,14 +5,18 @@ dir=$HOME/pics/walls/personal/new
 info=$HOME/.cache/script-cache/theme
 [ -f "$info" ] && . "$info" || : >"$info"
 
-usage(){ printf 'usage: %s [-rpsmc]\n' "${0##*/}"; exit 1; }
+usage() { 
+  printf 'usage: %s [-rpsmc]\n' "${0##*/}" >&2
+  exit 1
+}
 
-save(){ printf 'prev_wall=%s\ncur_wall=%s\ncolorscheme=%s\n' \
-  "$prev_wall" "$cur_wall" "$colorscheme" >"$info"
+save() { 
+  printf 'prev_wall=%s\ncur_wall=%s\ncolorscheme=%s\n' \
+    "$prev_wall" "$cur_wall" "$colorscheme" >"$info"
   printf '%s\n' "$cur_wall" >>"$HOME/.cache/script-cache/wallpaper-history"
 }
 
-colors(){ 
+colors() { 
   command -v wal >/dev/null || exit 1
   [ "$1" = pywal ] && wal -i "$2" -nqe || wal --theme "$1" -nqe || exit 1
   colorscheme=$1; save
@@ -20,7 +24,7 @@ colors(){
 <span color='#85AEF1'>$colorscheme</span>"
 }
 
-wall(){
+wall() {
   [ "$1" ] || exit 1
   killall -q wbg 2>/dev/null; wbg -s "$1" &
   [ "$arg" != "r" ] && { prev_wall=$cur_wall cur_wall=$1; save; }

@@ -1,0 +1,4 @@
+#!/bin/sh
+# sober
+
+flatpak run org.vinegarhq.Sober

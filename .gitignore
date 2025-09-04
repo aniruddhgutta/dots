@@ -1,2 +1,5 @@
 .config/vis/plugins
 .config/ncmpcpp/error.log
+.config/spicetify/Themes/marketplace
+.config/qutebrowser/pywalQute/__pycache__
+.local/bin/rip

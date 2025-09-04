@@ -75,3 +75,5 @@ source "$ZDATADIR/zsh-fzf-history-search/zsh-fzf-history-search.plugin.zsh"
 # Load prompt
 [ ! -f "$ZDOTDIR/.p10k.zsh" ] || source "$ZDOTDIR/.p10k.zsh"
 ZSH_AUTOSUGGEST_MANUAL_REBIND=1
+
+export PATH=$PATH:/home/vye/.spicetify
