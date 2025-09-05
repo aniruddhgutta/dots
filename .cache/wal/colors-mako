@@ -26,3 +26,11 @@ format=<b>%s</b>\n%b
 
 [app-name=brightness group-index=0]
 invisible=0
+
+# Themeing
+[app-name=theme]
+group-by=app-name
+format=<b>%s</b>\n%b
+
+[app-name=theme group-index=0]
+invisible=0

@@ -19,7 +19,7 @@ if [ -z "$DISPLAY" ] && [ "$XDG_VTNR" = 1 ]; then
     touch "$file"
     graphics="$HOME/.cache/script-cache/graphics"
     [ -f "$graphics" ] && source "$graphics"
-    exec dwl >/dev/null 2>&1
+    exec winit >/dev/null 2>&1
     rm "$file"
   fi
 fi

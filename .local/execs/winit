@@ -1,0 +1,4 @@
+#!/bin/sh
+# dwl + ministat
+
+dbus-run-session sh -c "ministat | dwl"
