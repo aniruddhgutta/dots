@@ -1,0 +1,226 @@
+#!/bin/sh
+# river config
+
+# Programs
+launcher="mew-run"
+browser='firefox'
+term="footclient"
+
+riverctl map normal Super Space spawn "$launcher"
+riverctl map normal Super P spawn "$launcher"
+riverctl map normal Super B spawn "$browser"
+riverctl map normal Super Return spawn "$term"
+riverctl map normal Super E spawn "$term -T files sh -lc lf"
+riverctl map normal Super S spawn "$term -T spotify spotify-player"
+riverctl map normal Super+Shift M spawn "$term -T mpd rmpc"
+riverctl map normal Super Z spawn "zathura"
+riverctl map normal Super a spawn "thunar"
+
+riverctl map normal Super C spawn "cliphist list | mew | cliphist decode | wl-copy"
+riverctl map normal Super+Alt L spawn '. ~/.cache/wal/colors-plain && wlock -i $color2 -a $color3'
+riverctl map normal Super M spawn "monitor-layout"
+riverctl map normal Super+Alt M spawn "wayland-graphics"
+
+riverctl map normal Super R spawn "power-menu -l"
+riverctl map normal Super+Shift R spawn "power-menu -p"
+riverctl map normal Super+Shift E spawn "emoji-menu"
+riverctl map normal Super+Shift C spawn "colorpick"
+
+riverctl map normal Super+Shift S spawn "screenshot -a"
+riverctl map normal Super+Shift D spawn "screenshot -f"
+riverctl map normal Alt+Shift S spawn "screenshot -as"
+riverctl map normal Alt+Shift D spawn "screenshot -fs"
+
+riverctl map normal Super W spawn "theme -s"
+riverctl map normal Super+Shift W spawn "theme -p"
+riverctl map normal Alt+Shift W spawn "theme -m"
+riverctl map normal Super+Shift T spawn "theme-menu"
+riverctl map normal Super+Shift P spawn "pkill dam; ministat | dam"
+
+riverctl map normal Super Left spawn "volume -t"
+riverctl map normal Super Right spawn "volume -t"
+riverctl map normal Super Up spawn "volume -i 5"
+riverctl map normal Super Down spawn "volume -d 5"
+
+riverctl map normal Super+Shift Left spawn "media -q -p"
+riverctl map normal Super+Shift Right spawn "media -q -n"
+riverctl map normal Super+Shift Up spawn "media -q -t"
+riverctl map normal Super+Shift Down spawn "media -q -t"
+riverctl map normal Super+Control Up spawn "media -v -i 5"
+riverctl map normal Super+Control Down spawn "media -v -d 5"
+riverctl map normal Super+Control m spawn "media-menu"
+
+riverctl map normal Super+Shift Left spawn "brightness -s 0"
+riverctl map normal Super+Shift Right spawn "brightness -s 100"
+riverctl map normal Super+Shift Up spawn "brightness -i 10"
+riverctl map normal Super+Shift Down spawn "brightness -d 10"
+
+# Basics
+riverctl map normal Super Q close
+riverctl map normal Super+Shift E exit
+riverctl map normal Super V toggle-float
+riverctl map normal Super F toggle-fullscreen
+
+# Monitors
+riverctl map normal Super Period focus-output next
+riverctl map normal Super Comma focus-output previous
+riverctl map normal Super+Shift Period send-to-output next
+riverctl map normal Super+Shift Comma send-to-output previous
+
+# Rivertile
+riverctl map normal Super H send-layout-cmd rivertile "main-ratio -0.05"
+riverctl map normal Super L send-layout-cmd rivertile "main-ratio +0.05"
+riverctl map normal Super+Shift H send-layout-cmd rivertile "main-count +1"
+riverctl map normal Super+Shift L send-layout-cmd rivertile "main-count -1"
+
+# Views
+riverctl map normal Super J focus-view next
+riverctl map normal Super K focus-view previous
+riverctl map normal Super+Shift J swap next
+riverctl map normal Super+Shift K swap previous
+riverctl map normal Super+Shift Return zoom
+
+# Move views
+riverctl map normal Super+Control H move left 100
+riverctl map normal Super+Control J move down 100
+riverctl map normal Super+Control K move up 100
+riverctl map normal Super+Control L move right 100
+
+# Snap views
+riverctl map normal Super+Alt+Control H snap left
+riverctl map normal Super+Alt+Control J snap down
+riverctl map normal Super+Alt+Control K snap up
+riverctl map normal Super+Alt+Control L snap right
+
+# Resize views
+riverctl map normal Super+Alt+Shift H resize horizontal -100
+riverctl map normal Super+Alt+Shift J resize vertical 100
+riverctl map normal Super+Alt+Shift K resize vertical -100
+riverctl map normal Super+Alt+Shift L resize horizontal 100
+
+# Mouse buttons
+riverctl map-pointer normal Super BTN_LEFT move-view
+riverctl map-pointer normal Super BTN_RIGHT resize-view
+riverctl map-pointer normal Super BTN_MIDDLE toggle-float
+
+# Scratchpad
+scratch_tag=$((1 << 20 ))
+riverctl map normal Super X toggle-focused-tags ${scratch_tag}
+riverctl map normal Super+Shift X set-view-tags ${scratch_tag}
+all_but_scratch_tag=$(( ((1 << 32) - 1) ^ $scratch_tag ))
+riverctl spawn-tagmask ${all_but_scratch_tag}
+
+# Sticky windows
+all_tags=$(((1 << 32) - 1))
+sticky_tag=$((1 << 31))
+all_but_sticky_tag=$(( $all_tags ^ $sticky_tag ))
+riverctl map normal Super+Control X toggle-view-tags $sticky_tag
+riverctl spawn-tagmask ${all_but_sticky_tag}
+
+# Tags
+for i in $(seq 1 9)
+do
+    tags=$((1 << ($i - 1)))
+
+    # Super+[1-9] to focus tag [0-8]
+    riverctl map normal Super $i set-focused-tags $(($sticky_tag + $tags))
+
+    # Super+Shift+[1-9] to tag focused view with tag [0-8]
+    riverctl map normal Super+Shift $i set-view-tags $tags
+
+    # Super+Control+[1-9] to toggle focus of tag [0-8]
+    riverctl map normal Super+Control $i toggle-focused-tags $tags
+
+    # Super+Shift+Control+[1-9] to toggle tag [0-8] of focused view
+    riverctl map normal Super+Shift+Control $i toggle-view-tags $tags
+done
+
+all_tags=$(((1 << 32) - 1))
+riverctl map normal Super 0 set-focused-tags $all_tags
+riverctl map normal Super+Shift 0 set-view-tags $all_tags
+
+# Layout orientation
+# riverctl map normal Super Up    send-layout-cmd rivertile "main-location top"
+# riverctl map normal Super Down  send-layout-cmd rivertile "main-location bottom"
+# riverctl map normal Super Right send-layout-cmd rivertile "main-location right"
+# riverctl map normal Super Left  send-layout-cmd rivertile "main-location left"
+
+# Passthrough
+riverctl declare-mode passthrough
+riverctl map normal Super F11 enter-mode passthrough
+riverctl map passthrough Super F11 enter-mode normal
+
+# Special keys
+for mode in normal locked
+do
+    # Eject the optical drive (well if you still have one that is)
+    riverctl map $mode None XF86Eject spawn 'eject -T'
+
+    # Control pulse audio volume with pamixer (https://github.com/cdemoulins/pamixer)
+    riverctl map $mode None XF86AudioRaiseVolume  spawn 'volume -i 5'
+    riverctl map $mode None XF86AudioLowerVolume  spawn 'volume -d 5'
+    riverctl map $mode None XF86AudioMute         spawn 'volume -t'
+
+    # Control MPRIS aware media players with playerctl (https://github.com/altdesktop/playerctl)
+    riverctl map $mode None XF86AudioMedia spawn 'media -q -t'
+    riverctl map $mode None XF86AudioPlay  spawn 'media -q -t'
+    riverctl map $mode None XF86AudioPrev  spawn 'media -q -p'
+    riverctl map $mode None XF86AudioNext  spawn 'media -q -n'
+
+    # Control screen backlight brightness with brightnessctl (https://github.com/Hummer12007/brightnessctl)
+    riverctl map $mode None XF86MonBrightnessUp   spawn 'brightness -i 5'
+    riverctl map $mode None XF86MonBrightnessDown spawn 'brightness -d 5'
+done
+
+# Colors
+. "${XDG_CACHE_HOME:-$HOME/.cache}/wal/colors-plain" || continue
+riverctl background-color "0x${color0:-002b36}"
+riverctl border-color-focused "0x${color2:-93a1a1}"
+riverctl border-color-unfocused "0x${color8:-586e75}"
+
+# Cursor
+riverctl focus-follows-cursor normal
+riverctl hide-cursor timeout 3000
+riverctl set-cursor-warp on-output-change
+riverctl xcursor-theme "Bibata-Modern-Ice" 18
+
+# Keyboard
+riverctl set-repeat 30 200
+
+trackpad="pointer-1739-52781-SYNA2BA6:00_06CB:CE2D_Touchpad"
+mouse="pointer-5426-152-Razer_Razer_DeathAdder_Essential"
+
+for i in "$trackpad" "$mouse" ; do
+    riverctl input "$i" pointer-accel 0.0
+    riverctl input "$i" accel-profile flat
+done
+
+riverctl input "$trackpad" tap enabled
+riverctl input "$trackpad" natural-scroll enabled
+riverctl input "$trackpad" drag enabled
+
+# Window rules
+# riverctl rule-add -app-id 'float*' -title 'foo' float    # floating
+# riverctl rule-add -app-id "bar" csd    # client side decorations
+
+# Enable rivertile
+riverctl default-layout rivertile
+riverctl default-attach-mode top
+rivertile -view-padding 4 -outer-padding 4 -main-ratio 0.5 &
+
+# Environment variables
+export XDG_CURRENT_DESKTOP=wlroots
+export ELECTRON_OZONE_PLATFORM_HINT=wayland
+
+# Autostart
+dbus-update-activation-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP &
+pipewire &
+mpd &
+mpd-notify &
+kanshi &
+foot --server &
+theme -r &
+ministat | dam &
+wl-clip-persist --clipboard regular &
+wl-paste --type text --watch cliphist store &
+wl-paste --type image --watch cliphist store &
