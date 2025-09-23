@@ -1,0 +1,12 @@
+#!/bin/sh
+# Avoid having to run DBus & XDG Portal daemons system-wide
+# alternate path - /usr/libexec/xdg-desktop-portal-wlr
+
+set -e
+
+unshare -frpc --mount-proc sh -c '
+export $(dbus-launch)
+/usr/lib/xdg-desktop-portal-wlr &
+
+exec "$@"
+' - "$@"

@@ -87,12 +87,13 @@ colors() {
     title
     wm
     distro # 
-    kernel #  󰏖
+    kernel # 
     shell # 
     # uptime # 
     # memory # 
     disk # 󰋊
     colors # 󰏘
+    # pkgcount # 󰏖
 } >/dev/null
 
 # Output

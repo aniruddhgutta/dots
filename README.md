@@ -46,7 +46,7 @@ my minimal dotfiles
 
 ## todo
 
-- [ ] update README
+- [ ] update README and docs
 - [ ] rewrite install script, apply optimisations
 - [ ] remove distro specific snippets
 - [ ] clean [extras](./extras) directory
@@ -56,6 +56,7 @@ my minimal dotfiles
 - [ ] rewrite kanshi config
 - [ ] extend minidark to theme gnome-shell
 - [ ] make qt theme (similar to minidark)
+- [ ] add light theme configs
 - [ ] make wallpaper repo
 
 

@@ -1,4 +1,4 @@
-#!/bin/sh -x
+#!/bin/sh
 # Logout and power menu
 
 for i in ssu doas sudo; do
@@ -8,11 +8,12 @@ done
 case "$1" in
   -l)
     option=$(printf "Shutdown\nReboot\nSleep\nLogout" | mew -p "Power options:" -i)
+    cmd=$(command -v loginctl) || cmd="ssu --"
     case "$option" in
-      "Shutdown") loginctl poweroff ;;
-      "Reboot") loginctl reboot ;;
-      "Sleep") loginctl suspend;;
-      "Logout") loginctl terminate-session ;;
+      "Shutdown") $cmd poweroff; $cmd shutdown ;;
+      "Reboot") $cmd reboot ;;
+      "Sleep") $cmd suspend;;
+      "Logout") $cmd terminate-session ;;
     esac
     ;;
 

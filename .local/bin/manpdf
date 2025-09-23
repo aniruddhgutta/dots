@@ -1,9 +1,9 @@
 #!/bin/sh -e
 # Pdf preview for man pages
 
-[ $1 ] || {
-  printf "usage: ${0##*/} manpage\n" >&2
-  exit 1
+[ "$1" ] || {
+    printf "usage: %s manpage\n" " ${0##*/}" >&2
+    exit 1
 }
 
 pdf="$(mktemp)"

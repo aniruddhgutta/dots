@@ -1,12 +1,12 @@
 #!/bin/sh
 # Environment variables to use different graphics card
 
-cmd_out="$HOME/.cache/script-cache/graphics"
+cmd_out="${XDG_CACHE_HOME:-$HOME/.cache}/script-cache/graphics"
 opt=$(printf "NVIDIA\nAMD\nNouveau" | mew -p "Select graphics:" -i) || exit 1
 
 case "$opt" in
-  "NVIDIA")
-    cat <<EOF > $cmd_out
+    "NVIDIA")
+        cat <<EOF > "$cmd_out"
 #!/bin/sh
 # NVIDIA
 card=/dev/dri/card1
@@ -18,8 +18,9 @@ sudo modprobe -r nouveau
 sudo modprobe nvidia_drm nvidia_modeset nvidia_uvm nvidia
 EOF
     ;;
-  "AMD")
-cat <<EOF > $cmd_out
+
+    "AMD")
+        cat <<EOF > "$cmd_out"
 #!/bin/sh
 # AMD
 export WLR_RENDERER=gles2
@@ -28,16 +29,18 @@ sudo modprobe -r nouveau
 sudo modprobe -r nvidia_drm nvidia_modeset nvidia_uvm nvidia
 EOF
     ;;
-  "Nouveau")
-cat <<EOF > $cmd_out
+
+    "Nouveau")
+        cat <<EOF > "$cmd_out"
 #!/bin/sh
 # Nouveau
 #sudo modprobe -r nvidia_drm nvidia_modeset nvidia_uvm nvidia
 #sudo modprobe nouveau
 EOF
     ;;
+
   *) exit 1 ;;
 esac
 
-notify-send -t 5000 "Graphics changed!" "<span color='#85AEF1'>$opt</span>\
- will be used in the next session!"
+notify-send -t 5000 "Graphics changed" \
+    "<b>$opt</b> will be used in the next session!"

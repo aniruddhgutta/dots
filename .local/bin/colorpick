@@ -7,6 +7,7 @@ color=$(grim -g "$(slurp -b 00000000 -p)" -t png - | \
   magick - -format '%[hex:p{0,0}]' info:-)
 
 [ "$color" ] && {
-  printf "#$color" | wl-copy
-  notify-send "Picked color" "<span color='#$color'></span> #$color copied to clipboard"
+    printf "#%s" "$color" | wl-copy
+    notify-send "Picked color" \
+        "<span color='#$color'></span> #$color copied to clipboard"
 }

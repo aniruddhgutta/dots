@@ -1,11 +1,13 @@
 #!/bin/sh -x
 # Menu to interact with media script
 
-option=$(printf "Play/Pause playback\nStop playback\nPrevious song\nNext song" | mew -p "Select media action:" -i -l 5)
-case "$option" in
-  "Play/Pause playback") media -q -t ;;
-  "Stop playback") media -q -s ;;
-  "Next song") media -q -n ;;
-  "Previous song") media -q -p ;;
-  *) exit 1 ;;
+opt=$(printf "Play/Pause playback\nStop playback\nPrevious song\nNext song" | 
+    mew -p "Select media action:" -i -l 5)
+
+case "$opt" in
+    "Play/Pause playback") media -q -t ;;
+    "Stop playback") media -q -s ;;
+    "Next song") media -q -n ;;
+    "Previous song") media -q -p ;;
+    *) exit 1 ;;
 esac

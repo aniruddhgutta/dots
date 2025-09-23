@@ -1,5 +1,5 @@
 profile {
-  output HDMI-A-1 enable mode 1920x1080@120Hz
+  output HDMI-A-1 enable mode 1920x1080@165Hz
   output eDP-1 disable
   exec theme -r
   exec (command -v mako >/dev/null && makoctl reload)
@@ -12,13 +12,13 @@ profile {
 }
 
 profile {
-  output HDMI-A-1 enable mode 1920x1080@120Hz
+  output HDMI-A-1 enable mode 1920x1080@165Hz
   exec theme -r
   exec (command -v mako >/dev/null && makoctl reload)
 }
 
 profile monitor {
-  output HDMI-A-1 enable mode 1920x1080@120Hz
+  output HDMI-A-1 enable mode 1920x1080@165Hz
   output eDP-1 disable
   exec theme -r
   exec (command -v mako >/dev/null && makoctl reload)
@@ -32,7 +32,7 @@ profile laptop {
 }
 
 profile dual {
-  output HDMI-A-1 enable mode 1920x1080@120Hz
+  output HDMI-A-1 enable mode 1920x1080@165Hz
   output eDP-1 enable
   exec theme -r
   exec (command -v mako >/dev/null && makoctl reload)

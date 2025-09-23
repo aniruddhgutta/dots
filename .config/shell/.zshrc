@@ -14,6 +14,8 @@ plug-setup() {
 ZDATADIR="${XDG_DATA_HOME:-$HOME/.local/share}/zsh"
 plug-setup
 
+zmodload zsh/system 2>/dev/null || true
+
 # Install plugins
 plug-install https://github.com/zsh-users/zsh-syntax-highlighting
 plug-install https://github.com/zsh-users/zsh-autosuggestions
@@ -22,9 +24,10 @@ plug-install https://github.com/joshskidmore/zsh-fzf-history-search
 
 # Evaluate on start
 prompt="${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+colors="${XDG_CACHE_HOME:-$HOME/.cache}/wal/sequences"
 [ -r "$prompt" ] && source "$prompt"
 command -v zoxide >/dev/null && eval "$(zoxide init zsh --cmd cd)"
-command -v wal >/dev/null && (cat ~/.cache/wal/sequences &)
+command -v wal >/dev/null && [ -f "$colors" ] && (cat "$colors" &)
 
 # Shell options
 setopt no_beep                # No bell
