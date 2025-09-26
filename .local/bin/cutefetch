@@ -4,8 +4,8 @@
 
 # Colors
 colorise() { 
-    color="\e[31m" # red
-    printf "%b" "${color}${1}\e[0m"
+    color="\033[31m" # red
+    printf "%b" "${color}${1}\033[0m"
 }
 
 # Title
@@ -78,7 +78,7 @@ disk() {
 colors() {
     i=0
     while [ "$i" -lt 8 ]; do
-        palette="${palette}\e[48;5;${i}m   \e[0m"
+        palette="${palette}\033[48;5;${i}m   \033[0m"
         i=$((i+1))
     done
 }

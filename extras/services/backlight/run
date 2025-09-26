@@ -1,11 +1,11 @@
 #!/bin/sh
 
+dir="/var/cache/backlight"
+
 # Restore saved brightness for each card, if any.
 for card in $(find /sys/class/backlight/ -type l); do
-    storage_file="/var/cache/backlight/$(basename $card)-brightness-old"
-    if [ -r "$storage_file" ]; then
-        cp "$storage_file" "$card/brightness"
-    fi
+    storage_file="$dir/$(basename $card)-brightness-old"
+    [ -r "$storage_file" ] && cp "$storage_file" "$card/brightness"
 done
 
 exec chpst -b backlight pause

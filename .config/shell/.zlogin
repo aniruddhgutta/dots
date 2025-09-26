@@ -17,9 +17,10 @@ if [ -z "$DISPLAY" ] && [ "$XDG_VTNR" = 1 ]; then
   
   if [ ! -f "$file" ]; then
     touch "$file"
-    # graphics="$HOME/.cache/script-cache/graphics"
-    # [ -f "$graphics" ] && source "$graphics"
+    graphics="$HOME/.cache/script-cache/graphics"
+    [ -f "$graphics" ] && source "$graphics"
     # exec winit >/dev/null 2>&1
+    exec dbus-run-session sh -c 'river -no-xwayland' >/dev/null 2>&1
     rm "$file"
   fi
 fi

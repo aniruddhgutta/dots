@@ -42,7 +42,7 @@ elif command -v xbps-install > /dev/null; then
   dwl_deps="wlroots0.19 wayland wayland-protocols libinput libxkbcommon pkg-config fcft tllist"
   dwl_devel_deps="base-devel wlroots0.19-devel wayland-devel libinput-devel libxkbcommon-devel fcft-devel"
 
-  nvidia="nvidia linux-firmware-nvidia mesa mesa-dri" # nvidia-utils egl-wayland
+  nvidia="nvidia linux-firmware-nvidia mesa mesa-dri mesa-nouveau-dri" # nvidia-utils egl-wayland
   pipewire="pipewire wireplumber alsa-pipewire libspa-bluetooth"
 
   music="mpd mpc ncmpcpp rmpc ffmpeg opus-tools yt-dlp picard" # ffmpeg4.4 spotdl python-syncedlyrics # easyeffects

@@ -1,9 +1,11 @@
 #!/bin/sh
 
-[ -d '/var/cache/backlight/' ] || mkdir -p '/var/cache/backlight'
-[ -w '/var/cache/backlight/' ] || chmod 755 '/var/cache/backlight/'
+dir="/var/cache/backlight"
+
+[ -d "$dir" ] || mkdir -p "$dir"
+[ -w "$dir" ] || chmod 755 "$dir"
 
 # Save current brightness of each card.
-for card in `find /sys/class/backlight/ -type l`; do
-    cp "$card/brightness" "/var/cache/backlight/$(basename $card)-brightness-old"
+for card in $(find /sys/class/backlight/ -type l); do
+    cp "$card/brightness" "$dir/$(basename $card)-brightness-old"
 done
